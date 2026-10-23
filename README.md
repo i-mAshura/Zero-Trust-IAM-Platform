@@ -324,3 +324,19 @@ RADAC-IAM-PLATFORM/
 
 ## 📄 License
 This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👨‍💻 Author & Engineering Credits
+
+<div align="center">
+
+**Designed and built by:**
+
+### **K. SAI ABHIRAM**
+[![GitHub](https://img.shields.io/badge/GitHub-i--mAshura-181717?style=for-the-badge&logo=github)](https://github.com/i-mAshura)
+
+*Enterprise Zero-Trust IAM Architecture • Keycloak · OPA · Terraform · Wazuh / ARGUS*
+
+</div>
+
