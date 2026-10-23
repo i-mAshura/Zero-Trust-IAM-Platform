@@ -1,0 +1,16 @@
+{
+  "name": "saml-node-app",
+  "version": "1.0.0",
+  "description": "SAML 2.0 Service Provider integrated with Keycloak Zero-Trust IdP",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "passport": "^0.7.0",
+    "@node-saml/passport-saml": "^5.0.0",
+    "cookie-parser": "^1.4.6"
+  }
+}

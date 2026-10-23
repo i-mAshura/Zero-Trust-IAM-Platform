@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+*/node_modules/
+package-lock.json
+
+# Build outputs
+dist/
+build/
+target/
+*.jar
+*.war
+
+# Python
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+crash.log
+
+# Environment and sensitive data
+.env
+*.pem
+*.key
+*.crt
+
+# IDE and OS
+.idea/
+.vscode/
+*.swp
+*.DS_Store
+Thumbs.db
+
+# Logs and runtime data
+*.log
+logging/audit-output/*.json
+postgres_data/

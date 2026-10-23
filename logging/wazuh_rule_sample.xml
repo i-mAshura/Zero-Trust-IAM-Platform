@@ -1,0 +1,59 @@
+<!-- Wazuh Local Rules for Keycloak Zero-Trust IAM & OPA Audit Events -->
+<group name="keycloak,iam,zero_trust,">
+
+  <!-- Rule 100200: Base Keycloak Audit Event -->
+  <rule id="100200" level="3">
+    <decoded_as>json</decoded_as>
+    <field name="log_source">keycloak_iam</field>
+    <description>Keycloak IAM Event received</description>
+  </rule>
+
+  <!-- Rule 100201: Successful Authentication with MFA -->
+  <rule id="100201" level="3">
+    <if_sid>100200</if_sid>
+    <field name="event_type">^LOGIN$</field>
+    <description>Zero-Trust User Login Successful: $(username) via $(client_id)</description>
+    <mitre>
+      <id>T1078</id>
+    </mitre>
+  </rule>
+
+  <!-- Rule 100202: Failed Login Attempt -->
+  <rule id="100202" level="5">
+    <if_sid>100200</if_sid>
+    <field name="event_type">^LOGIN_ERROR$</field>
+    <description>Keycloak IAM Authentication Failure: $(username) from $(ip_address)</description>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+  </rule>
+
+  <!-- Rule 100203: Potential Credential Stuffing / Brute Force Attack -->
+  <rule id="100203" level="10" frequency="5" timeframe="60">
+    <if_matched_sid>100202</if_matched_sid>
+    <same_source_ip />
+    <description>Multiple Keycloak authentication failures detected (Possible Brute Force / Credential Stuffing)</description>
+    <mitre>
+      <id>T1110.001</id>
+    </mitre>
+  </rule>
+
+  <!-- Rule 100204: Step-Up Authentication Required Triggered -->
+  <rule id="100204" level="6">
+    <if_sid>100200</if_sid>
+    <field name="operation_type">^STEP_UP_CHALLENGE$</field>
+    <description>Zero-Trust Conditional Step-Up MFA Challenge Enforced for Sensitive Resource</description>
+  </rule>
+
+  <!-- Rule 100205: Administrative Role Elevation / Assignment in Keycloak -->
+  <rule id="100205" level="8">
+    <if_sid>100200</if_sid>
+    <field name="operationType">^(CREATE|UPDATE)$</field>
+    <field name="resourceType">^REALM_ROLE_MAPPING$</field>
+    <description>Privileged Role Assignment detected in Keycloak Realm</description>
+    <mitre>
+      <id>T1098</id>
+    </mitre>
+  </rule>
+
+</group>
